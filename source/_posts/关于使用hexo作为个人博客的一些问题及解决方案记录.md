@@ -48,3 +48,4 @@ theme: next
 ``` bash
 npm install --save hexo-deployer-git
 ```
+详细可以参考 [next官方文档](http://theme-next.iissnan.com/)
