@@ -5,6 +5,13 @@ category:
 - javaSE
 tags:
 - 集合
+keywords:
+- 集合
+- java
+- javaSE
+- Collection
+- List
+- HashList
 ---
 关于集合，先看下面这张框架图，可以清晰的看到，整个集合主要包含两大块： `Collection`和`Map`，其中Collection接口是一个单列集合，用来存储一个一个的对象，Map接口是一个双列集合，用来存储一对（key - value）一对的数据。接下集合部分主要就分析这两个部分（不会详细讲集合中公有的方法，主要介绍几个实现类的区别和接口的区别）。
 ![](collections.png)
@@ -130,6 +137,21 @@ public void test5(){
      * Employee{name='test3', age=6, salary=9}
      * Employee{name='test4', age=8, salary=12}
      */
+}
+```
+#### 关于ArrayList的天坑
+ArrayList中的每一个元素存储的实际上是对象引用（之前在公司写代码的时候，做过类似下面的事），假如按照下面的方式使用ArrayList，则最后list中存储的元素都相同且都是最后一个元素，原因是list中所有的元素都指向同一块内存。
+```java
+@Test
+public void test1(){
+    List<Person> list = new ArrayList<>(16);
+    Person p = new Person();
+    for(int i = 0; i < 10; i++){
+        p.setName("test"+i);
+        p.setAge(i);
+        list.add(p);
+    }
+    System.out.println(list);
 }
 ```
 
