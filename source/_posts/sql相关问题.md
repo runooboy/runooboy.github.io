@@ -9,7 +9,7 @@ category:
 #### sql中Varchar为null,''的区别
 
 首先先看一下java中的String类型数据在数据库中为null或者空以及''时的区别，数据库中的数据如下：
-
+<!-- more -->
 ![](string.png)
 
 本次测试主要是使用`springboot+mybatis`来实现的，java代码如下：
