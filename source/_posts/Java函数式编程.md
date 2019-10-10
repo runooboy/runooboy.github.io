@@ -188,56 +188,93 @@ lambda表达式的语法主要可以参考[github on java8](https://github.com/L
 
 ### java8四大内置核心函数式接口
 
+#### 消费型接口(Consumer<T>)
+消费型接口源码：
 ```java
 /**
- * Java8内置的四大核心函数式接口
+ * Represents an operation that accepts a single input argument and returns no
+ * result. Unlike most other functional interfaces, {@code Consumer} is expected
+ * to operate via side-effects.
  *
- * Consumer<T>: 消费型接口
- * void accept(T t);
+ * <p>This is a <a href="package-summary.html">functional interface</a>
+ * whose functional method is {@link #accept(Object)}.
  *
- * Supplier<T>:供给型接口
- * T get();
+ * @param <T> the type of the input to the operation
  *
- * Function<T, R>: 函数型接口
- * R apply(T t);
- *
- * Predicate<T>: 断言型接口:
- * boolean test(T t);
- *
- *Java8中还提供了其他函数式接口
+ * @since 1.8
  */
-public class TestLambda2 {
+@FunctionalInterface
+public interface Consumer<T> {
 
-    @Test
-    public void test4(){
-        List<String> list = Arrays.asList("Hello", "Lambda", "Go", "java");
-        list = filterStr(list, (s)->s.contains("o"));
-        for(String str:list){
-            System.out.print(str+" ");
+    /**
+     * Performs this operation on the given argument.
+     *
+     * @param t the input argument
+     */
+    void accept(T t);
+}
+```
+从上述注释中可以看出，消费型接口就是接收一个参数，然后利用这个参数完成一系列操作。
+消费型接口使用：
+```java
+public void happy(double money, Consumer<Double> consumer){
+    consumer.accept(money);
+}
+@Test
+public void test1(){
+    happy(10, (m)-> System.out.println(m));
+    // 打印：10.0
+}
+@Test
+public void test5(){
+	// 与使用lambda表达式的效果相同
+    happy(10, new Consumer<Double>() {
+        @Override
+        public void accept(Double aDouble) {
+            System.out.println(aDouble);
         }
-        // 打印：Hello Go 
-    }
-    public List<String> filterStr(List<String> list, Predicate<String> predicate){
-        List<String> stringList = new ArrayList<>(16);
-        for(String str: list){
-            if(predicate.test(str)){
-                stringList.add(str);
-            }
+    });
+}
+```
+我们必须有一个方法A调用了消费型接口的`accept`方法，然后运行的时候调用方法A并传入一个消费者对象（可以通过匿名内部类完成），使用lambda则是简化了这段代码。
+
+#### 供给型接口(Supplier<T>)
+供给型接口源码：
+```java
+/**
+ * Represents a supplier of results.
+ *
+ * <p>There is no requirement that a new or distinct result be returned each
+ * time the supplier is invoked.
+ *
+ * <p>This is a <a href="package-summary.html">functional interface</a>
+ * whose functional method is {@link #get()}.
+ *
+ * @param <T> the type of results supplied by this supplier
+ *
+ * @since 1.8
+ */
+@FunctionalInterface
+public interface Supplier<T> {
+
+    /**
+     * Gets a result.
+     *
+     * @return a result
+     */
+    T get();
+}
+```
+供给型接口在`get`方法完成一系列操作后返回一个结果。
+供给型接口使用：
+```java
+public List<Integer> getNumList(int length, Supplier<Integer> integerSupplier){
+        List<Integer> list = new ArrayList<>(length);
+        for(int i = 0; i < length; i++){
+            list.add(integerSupplier.get());
         }
-        return stringList;
+        return list;
     }
-
-
-    @Test
-    public void test3(){
-        System.out.println(strHandler("test", (s)->s.toUpperCase()));
-        // 打印：TEST
-    }
-
-    public String strHandler(String str, Function<String, String> function){
-        return function.apply(str);
-    }
-
     @Test
     public void test2(){
         List<Integer> list = getNumList(10, ()->(int)(Math.random()*100));
@@ -246,26 +283,97 @@ public class TestLambda2 {
         }
         // 打印：41 13 90 13 23 54 69 98 22 25
     }
+```
+和消费者接口一样，必有有一个方法A调用供给型接口中的`get`方法，然后调用这个方法A并提供一个供给型接口参数。
+#### 函数型接口(Function<T>)
+函数型接口源码：
+```java
+/**
+ * Represents a function that accepts one argument and produces a result.
+ *
+ * <p>This is a <a href="package-summary.html">functional interface</a>
+ * whose functional method is {@link #apply(Object)}.
+ *
+ * @param <T> the type of the input to the function
+ * @param <R> the type of the result of the function
+ *
+ * @since 1.8
+ */
+@FunctionalInterface
+public interface Function<T, R> {
 
-    public List<Integer> getNumList(int length, Supplier<Integer> integerSupplier){
-        List<Integer> list = new ArrayList<>(length);
-        for(int i = 0; i < length; i++){
-            list.add(integerSupplier.get());
-        }
-        return list;
-    }
+    /**
+     * Applies this function to the given argument.
+     *
+     * @param t the function argument
+     * @return the function result
+     */
+    R apply(T t);
+}
 
+```
+函数型接口使用：
+```java
+@Test
+public void test3(){
+    System.out.println(strHandler("test", (s)->s.toUpperCase()));
+    // 打印：TEST
+}
 
-    @Test
-    public void test1(){
-        happy(10, (m)-> System.out.println(m));
-        // 打印：10.0
-    }
-    public void happy(double money, Consumer<Double> consumer){
-        consumer.accept(money);
-    }
+public String strHandler(String str, Function<String, String> function){
+    return function.apply(str);
 }
 ```
+
+
+#### 断言型接口(Predicate<T>)
+断言型接口源码：
+```java
+/**
+ * Represents a predicate (boolean-valued function) of one argument.
+ *
+ * <p>This is a <a href="package-summary.html">functional interface</a>
+ * whose functional method is {@link #test(Object)}.
+ *
+ * @param <T> the type of the input to the predicate
+ *
+ * @since 1.8
+ */
+@FunctionalInterface
+public interface Predicate<T> {
+
+    /**
+     * Evaluates this predicate on the given argument.
+     *
+     * @param t the input argument
+     * @return {@code true} if the input argument matches the predicate,
+     * otherwise {@code false}
+     */
+    boolean test(T t);
+}
+```
+断言型接口使用：
+```java
+@Test
+public void test4(){
+    List<String> list = Arrays.asList("Hello", "Lambda", "Go", "java");
+    list = filterStr(list, (s)->s.contains("o"));
+    for(String str:list){
+        System.out.print(str+" ");
+    }
+    // 打印：Hello Go
+}
+public List<String> filterStr(List<String> list, Predicate<String> predicate){
+    List<String> stringList = new ArrayList<>(16);
+    for(String str: list){
+        if(predicate.test(str)){
+            stringList.add(str);
+        }
+    }
+    return stringList;
+}
+```
+
 ## 方法引用
 ### 什么是方法引用
 > 若lambda体中的内容已经有方法已经实现了，那么就可以使用方法引用

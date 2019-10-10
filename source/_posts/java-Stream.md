@@ -15,7 +15,21 @@ tags:
 <!-- more -->
 Stream是java8的新特性，它与 java.io 包里的 InputStream和 OutputStream是完全不同的概念.java8中的Stream主要是用于处理java中的数据的。而且Stream只是将原来的数据拷贝一份，然后通过中间操作处理拷贝的数据，最后通过终端操作将得到我们想要的数据。而且Stream是一种惰性加载的。（惰性加载：如果流的操作中没有执行终止操作也不会执行中间操作。）
 接下来我们看下Stream的总纲：
-![](stream.png)
+![](Stream.jpg)
+
+详细图：
+
+![创建流](创建流.jpg)
+
+
+![管道](管道.jpg)
+
+
+![流](流.jpg)
+
+![流和迭代器](流和迭代器.jpg)
+
+
 ### stream 创建
 废话不多说，直接先上代码：
 ```java
