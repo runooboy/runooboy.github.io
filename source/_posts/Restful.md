@@ -1,6 +1,16 @@
+---
+title: RESTFul
+date: 2019-10-17 20:30:21
+category:
+- javaEE
+tags:
+- javaWeb
+---
 ## RESTful是什么？
 
 REST是**REpresentational State Transfer**的缩写（表述性状态转移），REST是一种体系结构。
+
+<!-- more -->
 
 简单的说，REST就是将资源的状态以合适客户端或服务端的形式从服务端转移到客户端（或者反过来）。在REST中，资源通过 **URL** 进行识别和定位，然后通过不同的 **action（既HTTP方法，GET等）** 来定义REST应该完成的功能。
 

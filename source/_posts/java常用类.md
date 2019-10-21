@@ -19,6 +19,7 @@ tags:
 
 ![](memory.png)
 
+<!-- more -->
 #### String的概述
 
 String类代表字符串，Java程序中的所有字符串字面值（如“abc”）都作为此类的实例实现。
