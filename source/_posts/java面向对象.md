@@ -459,7 +459,7 @@ public Comparable getComparable(){
     };
 }
 ```
-
+而且匿名内部类里面只能调用局部变量，不能修改局部变量的值，但是可以修改外部成员变量的值，使用`OutClass.this.value`访问。
 
 
 
