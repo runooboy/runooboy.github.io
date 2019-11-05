@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="多态,面向对象,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="什么是面向对象？这大概是java中最重要的一部分了，写这篇文章主要是自己之前java基础不怎么样，然后今天看了一些关于面向对象和多态的文章，做下笔记。">
+<meta name="keywords" content="多态,面向对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java面向对象">
+<meta property="og:url" content="https://runooboy.github.io/2019/09/16/java面向对象/index.html">
+<meta property="og:site_name" content="Dainel&#39;s blog">
+<meta property="og:description" content="什么是面向对象？这大概是java中最重要的一部分了，写这篇文章主要是自己之前java基础不怎么样，然后今天看了一些关于面向对象和多态的文章，做下笔记。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-10-22T10:41:44.542Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java面向对象">
+<meta name="twitter:description" content="什么是面向对象？这大概是java中最重要的一部分了，写这篇文章主要是自己之前java基础不怎么样，然后今天看了一些关于面向对象和多态的文章，做下笔记。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://runooboy.github.io/2019/09/16/java面向对象/">
+
+
+
+
+
+  <title>java面向对象 | Dainel's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dainel's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://runooboy.github.io/2019/09/16/java面向对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Daniel">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dainel's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java面向对象</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-16T13:46:48+08:00">
+                2019-09-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javaSE/" itemprop="url" rel="index">
+                    <span itemprop="name">javaSE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>什么是面向对象？这大概是java中最重要的一部分了，写这篇文章主要是自己之前java基础不怎么样，然后今天看了一些关于面向对象和多态的文章，做下笔记。</p>
+<a id="more"></a>
+
+<h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><h3 id="java中什么是对象"><a href="#java中什么是对象" class="headerlink" title="java中什么是对象"></a>java中什么是对象</h3><p>java中万物皆对象，既所有的一切都可以是对象，动物可以是对象，人可以是对象，头也可以是对象… 总之，就是我们可以看到的事物基本上都可以是对象。</p>
+<h3 id="什么是面向对象"><a href="#什么是面向对象" class="headerlink" title="什么是面向对象"></a>什么是面向对象</h3><p>面向对象并不仅仅是这几个字而已，这是一种编程思想，它强调的是具备功能的对象，以对象为基本单位；在实际开发中，可以有效地帮助企业解决项目庞大不好管理的问题；讲到面向对象编程，就不得讲讲面向过程编程；面向过程强调的是功能行为，以函数为最小单位。</p>
+<h4 id="面向过程编程和面向对象编程"><a href="#面向过程编程和面向对象编程" class="headerlink" title="面向过程编程和面向对象编程"></a>面向过程编程和面向对象编程</h4><p>在这里先讲个把大象放进冰箱的例子，在面向过程编程中，我们的做法是：</p>
+<ol>
+<li>打开冰箱</li>
+<li>把大象放进冰箱</li>
+<li>关闭冰箱</li>
+</ol>
+<p>然而在面向对象编程时却不一样了，通常做法是这样的：</p>
+<ol>
+<li>创建冰箱类，并声明打开和关闭冰箱的方法</li>
+<li>创建大象类，并声明进入冰箱的方法</li>
+<li>创建操作者类，并声明将大象放入冰箱、打开和关闭冰箱的方法</li>
+</ol>
+<h2 id="面向对象三大特征"><a href="#面向对象三大特征" class="headerlink" title="面向对象三大特征"></a>面向对象三大特征</h2><h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h3><h4 id="为什么需要封装？封装的作用？"><a href="#为什么需要封装？封装的作用？" class="headerlink" title="为什么需要封装？封装的作用？"></a>为什么需要封装？封装的作用？</h4><ol>
+<li>我要用洗衣机，只需要按一下开关，有必要了解洗衣机内部的结构吗？</li>
+<li>我要用电脑，我只需要知道怎么用就行了，有必要了解电脑的内部结构吗？</li>
+<li>。。。</li>
+</ol>
+<h4 id="程序设计一直以来都在追求“高内聚、低耦合”"><a href="#程序设计一直以来都在追求“高内聚、低耦合”" class="headerlink" title="程序设计一直以来都在追求“高内聚、低耦合”"></a>程序设计一直以来都在追求“高内聚、低耦合”</h4><ul>
+<li>高内聚：类的内部数据细节自己完成，不允许外部干涉</li>
+<li>低耦合：仅对外暴露少量的方法用于使用</li>
+</ul>
+<p>隐藏对象内部的复杂性，只对外公开简单的接口。便于外界调用，从而提高系统的可扩展性、可维护性。通俗的说，把该隐藏的隐藏起来，该暴露的暴露出来，这就是封装性的设计思想。</p>
+<h4 id="java封装性的体现需要权限修饰符来配合。"><a href="#java封装性的体现需要权限修饰符来配合。" class="headerlink" title="java封装性的体现需要权限修饰符来配合。"></a>java封装性的体现需要权限修饰符来配合。</h4><p>四种权限修饰符（从小到大排列）：private、default(缺省)、protected、public</p>
+<table>
+<thead>
+<tr>
+<th>作用域</th>
+<th>当前类</th>
+<th>同一包(package)</th>
+<th>子孙类</th>
+<th>其他包</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>protected</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td>default</td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>private</td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+</tr>
+</tbody></table>
+<p>关于抽象类的一些变化：<br>JDK 1.8以前，抽象类的方法默认访问权限为protected<br>JDK 1.8时，抽象类的方法默认访问权限变为default<br>关于接口<br>JDK 1.8以前，接口中的方法必须是public的<br>JDK 1.8时，接口中的方法可以是public的，也可以是default的</p>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>继承体现的是<code>is a</code>的关系，比如动物类继承生物类，那么就可以说动物类是一个生物类，反过来则不行。<br>在java中是没有多继承的，那么有的时候我们需要多继承怎么办呢？java提供了接口机制。<br>接口：比如鸟继承动物类，可是并不是所有的动物都能飞，而鸟是可以飞的，那么我们就可以自己写一个<code>Flyable</code>接口，然后鸟在继承动物类的时候实现这个接口，另外鸟是可以实现多个接口的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bird</span> <span class="keyword">extends</span> <span class="title">Animal</span> <span class="keyword">implements</span> <span class="title">Flyable</span>, <span class="title">Eatable</span></span>&#123;</span><br><span class="line">	<span class="comment">// 重写接口中的方法。。。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p>多态性：可以理解未一个事物的多种形态（或者多种行为）。<br>对象的多态性：父类的引用指向子类的对象。<br>多态的使用前提：1. 类的继承；2. 方法的重写</p>
+<p>有了对象的多态性以后，我们在编译器，只能调用父类中声明的方法，但在运行期，我们实际执行的的是子类重写父类的方法，总结如下：</p>
+<blockquote>
+<p>编译看左面，运行看右面</p>
+</blockquote>
+<p>对象的多态性只适用于方法，不适用于属性（编译和运行都看左边）</p>
+<h4 id="陷阱：“重写”私有方法"><a href="#陷阱：“重写”私有方法" class="headerlink" title="陷阱：“重写”私有方法"></a>陷阱：“重写”私有方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Aniaml</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"private f()"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Aniaml</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"public f()"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PrivateOverride</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Aniaml aniaml = <span class="keyword">new</span> Cat();</span><br><span class="line">        aniaml.f();</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 报错：</span></span><br><span class="line"><span class="comment">         * Error:(22, 15) java: f()可以在com.polymorphism.Aniaml中访问private</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实这也体现了上面说的方法的多态性为<code>编译看左面，运行看右面</code>。<br>另外，也许你一不小心会尝试这样做：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PrivateOverride</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"private f()"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        PrivateOverride po = <span class="keyword">new</span> Derived();</span><br><span class="line">        po.f();</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">	     * 打印结果：</span></span><br><span class="line"><span class="comment">	     * private f()</span></span><br><span class="line"><span class="comment">	     */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Derived</span> <span class="keyword">extends</span> <span class="title">PrivateOverride</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"public f()"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你期待的 打印结果是<code>public f()</code>，然而 private 方法也是 final 的，对于派生类来说是隐蔽的。因此，这里 Derived 的 f() 是一个全新的方法；因为基类版本的 f() 屏蔽了 Derived ，因此它都不算是重载方法。<br>结论是只有非 private 方法才能被重写，但是得小心重写 private 方法的现象，编译器不报错，但不会按我们所预期的执行。为了清晰起见，派生类中的方法名采用与基类中 private 方法名不同的命名。</p>
+<h2 id="面向对象剩余知识点"><a href="#面向对象剩余知识点" class="headerlink" title="面向对象剩余知识点"></a>面向对象剩余知识点</h2><h3 id="基本数据类型、包装类、String"><a href="#基本数据类型、包装类、String" class="headerlink" title="基本数据类型、包装类、String"></a>基本数据类型、包装类、String</h3><table>
+<thead>
+<tr>
+<th>基本数据类型</th>
+<th>大小/字节</th>
+<th>包装类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>byte</td>
+<td>1</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>short</td>
+<td>2</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>char</td>
+<td>2</td>
+<td>Character</td>
+</tr>
+<tr>
+<td>int</td>
+<td>4</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>float</td>
+<td>4</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>long</td>
+<td>8</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>double</td>
+<td>8</td>
+<td>Double</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>JVM决定</td>
+<td>Boolean</td>
+</tr>
+</tbody></table>
+<h4 id="基本数据类型转换为包装类"><a href="#基本数据类型转换为包装类" class="headerlink" title="基本数据类型转换为包装类"></a>基本数据类型转换为包装类</h4><p>基本数据类型转换为包装类都可以通过调用包装类的构造器来完成，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer in1 = <span class="keyword">new</span> Integer(<span class="number">10</span>);</span><br><span class="line">Float f1 = <span class="keyword">new</span> Float(<span class="number">1.23f</span>);</span><br><span class="line">Boolean b1 = <span class="keyword">new</span> Boolean(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+
+<p>关于包装类，可以看包装类里面的源码实现。比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Boolean b2 = <span class="keyword">new</span> Boolean(<span class="string">"true123"</span>);</span><br><span class="line"><span class="comment">// b2为false</span></span><br></pre></td></tr></table></figure>
+
+<p>Boolean类中对使用String类型的参数构造器处理方式为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> ((s != <span class="keyword">null</span>) &amp;&amp; s.equalsIgnoreCase(<span class="string">"true"</span>));</span><br></pre></td></tr></table></figure>
+
+<p>所有上面的b2为false。</p>
+<h4 id="包装类转换为基本数据类型"><a href="#包装类转换为基本数据类型" class="headerlink" title="包装类转换为基本数据类型"></a>包装类转换为基本数据类型</h4><p>包装类转换为基本数据类型基本都是通过调用包装类Xxx的xxxValue()完成的，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Integer in1 = <span class="keyword">new</span> Integer(<span class="number">12</span>);</span><br><span class="line"><span class="keyword">int</span> i1 = in1.intValue();</span><br><span class="line">System.out.println(i1+<span class="number">11</span>);</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 打印结果：</span></span><br><span class="line"><span class="comment"> * 23</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">Float fl1 = <span class="keyword">new</span> Float(<span class="number">12.3f</span>);</span><br><span class="line"><span class="keyword">float</span> f1 = fl1.floatValue();</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 打印结果：</span></span><br><span class="line"><span class="comment"> * 12.3</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="自动装箱和自动拆箱"><a href="#自动装箱和自动拆箱" class="headerlink" title="自动装箱和自动拆箱"></a>自动装箱和自动拆箱</h4><p>在jdk5之后，jdk提供类自动装箱和自动拆箱，不再要求程序员像上面一样强行处理基本数据类型，为处理基本数据类型提供了极大地便利：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自动装箱</span></span><br><span class="line">Integer in1 = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自动拆箱</span></span><br><span class="line"><span class="keyword">int</span> in2 = in1;</span><br><span class="line">System.out.println(in1 + <span class="string">" "</span>+in2);</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 打印结果：</span></span><br><span class="line"><span class="comment"> * 10 10</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+<p>当然，在这里也有一个小陷阱需要注意一下，就是Boolean和boolean的初始化是不同的，Boolean初始化出来时null，而boolean初始完成后时false：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span></span>&#123;</span><br><span class="line">    Boolean flag1; <span class="comment">//null</span></span><br><span class="line">    <span class="keyword">boolean</span> flag2; <span class="comment">//false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="基本数据类型、包装类和String之间的相互转换"><a href="#基本数据类型、包装类和String之间的相互转换" class="headerlink" title="基本数据类型、包装类和String之间的相互转换"></a>基本数据类型、包装类和String之间的相互转换</h4><p>基本数据类型、包装类转换为String类型有两种方式</p>
+<ol>
+<li><p>使用连接运算：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> num1 = <span class="number">10</span>;</span><br><span class="line">   String str1 = num1+<span class="string">""</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用String重载的valueOf(Xxx xxx)方法即可。</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> f1 = <span class="number">12.3f</span>;</span><br><span class="line">String str2 = String.valueOf(f1);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>String类型转换为基本数据类型、包装类调用包装类的parseXxx(String s)方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    String str1 = <span class="string">"123a"</span>;</span><br><span class="line"><span class="comment">//  错误的情况 ：</span></span><br><span class="line"><span class="comment">//  int in1 = (int)str1;</span></span><br><span class="line"><span class="comment">//  Integer in2 = (Integer) str1;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 可能会报NumberFormatException</span></span><br><span class="line">    <span class="keyword">int</span> in1 = Integer.parseInt(str1);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">boolean</span> b1 = Boolean.parseBoolean(<span class="string">"true1"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="类的内部结构——代码块"><a href="#类的内部结构——代码块" class="headerlink" title="类的内部结构——代码块"></a>类的内部结构——代码块</h3><ol>
+<li>代码块的作用：初始化类、对象</li>
+<li>代码块如果有修饰的话，只能使用static</li>
+<li>代码块只要分为静态代码块和非静态代码块</li>
+</ol>
+<h4 id="静态代码块"><a href="#静态代码块" class="headerlink" title="静态代码块"></a>静态代码块</h4><ol>
+<li>内部可以有输出语句</li>
+<li>随着类的加载而执行，而且只执行一次</li>
+<li>作用：初始化类的信息</li>
+<li>如果一个类中定义了多个静态代码块，则按照声明的先后顺序执行</li>
+</ol>
+<h4 id="非静态代码块"><a href="#非静态代码块" class="headerlink" title="非静态代码块"></a>非静态代码块</h4><ol>
+<li>内部可以有输出语句</li>
+<li>随着对象的创建而执行</li>
+<li>每创建一个对象，就执行一次非静态代码块</li>
+<li>作用：可以才创建对象时，对对象的属性等进行初始化</li>
+<li>如果一个类中定义了多个非静态代码块，则按照声明的先后顺序执行</li>
+</ol>
+<h4 id="静态代码块和非静态代码块使用实例"><a href="#静态代码块和非静态代码块使用实例" class="headerlink" title="静态代码块和非静态代码块使用实例"></a>静态代码块和非静态代码块使用实例</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BlockTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(Person.desc);</span><br><span class="line"></span><br><span class="line">        Person p1 = <span class="keyword">new</span> Person();</span><br><span class="line">        Person p2 = <span class="keyword">new</span> Person();</span><br><span class="line">        System.out.println(<span class="string">"\n"</span>+p1.getName()+<span class="string">" "</span>+p1.getAge());</span><br><span class="line">        System.out.println(p2.getName()+<span class="string">" "</span>+p2.getAge());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">static</span> String desc = <span class="string">"这是一个人"</span>;</span><br><span class="line">    <span class="comment">// 静态代码块</span></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"static block"</span>);</span><br><span class="line">        desc = <span class="string">"在静态进行了修改。。。"</span>+desc;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 非静态代码块</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">"nonstatic block"</span>);</span><br><span class="line">        <span class="keyword">this</span>.name = <span class="string">"dd"</span>;</span><br><span class="line">        <span class="keyword">this</span>.age = <span class="number">13</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>打印结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> block</span><br><span class="line">在静态进行了修改。。。这是一个人</span><br><span class="line">nonstatic block</span><br><span class="line">nonstatic block</span><br><span class="line"></span><br><span class="line">dd <span class="number">13</span></span><br><span class="line">dd <span class="number">13</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="类的内部结构——内部类"><a href="#类的内部结构——内部类" class="headerlink" title="类的内部结构——内部类"></a>类的内部结构——内部类</h3><ul>
+<li>当一个事物的内部，还有一个部分需要一个完整的结果进行描述，而这个内部的完整结构又只为外部事物提供服务，那么整个内部的完整结构最好使用内部类。比如人可以抽象成一个类，而人的脑袋也可以抽象成一个类，这个时候就可以将脑袋声明为人的内部类。</li>
+<li>在java中，允许一个类的定义位于另一个类的内部，前者称为称为内部类，后者称为外部类。</li>
+<li>Inner class一般用于定义它的类或语句之内，在外部引用它时必须给出完整的名称，Inner class的名字不能与包含它的外部类类名相同；</li>
+</ul>
+<h4 id="成员内部类（static成员内部类与非static成员内部类）"><a href="#成员内部类（static成员内部类与非static成员内部类）" class="headerlink" title="成员内部类（static成员内部类与非static成员内部类）"></a>成员内部类（static成员内部类与非static成员内部类）</h4><p>一方面，作为外部类的成员具有如下特点：</p>
+<ol>
+<li>调用外部类的结构</li>
+<li>可以被static修饰</li>
+<li>可以被4中不同的权限修饰</li>
+</ol>
+<p>另一方面，作为一个类具有如下特点：</p>
+<ol>
+<li>类里面可以定义属性、方法、构造器等</li>
+<li>可以被final修饰，表示此类不能被继承，言外之意，不使用final，就可以被继承</li>
+<li>可以被abstract修饰</li>
+</ol>
+<p>通常，我们使用内部类主要关注如下3个问题：</p>
+<ol>
+<li>如何实例化成员内部类的对象</li>
+<li>如何在成员内部类中区分调用外部类的结构</li>
+<li>开发中局部内部类的使用（详细请看下面的<a href="#part">局部内部类</a>）</li>
+</ol>
+<p>关于前面两个问题，可以参考下面的使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InnerClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// 实例化非静态内部类</span></span><br><span class="line">        Animal a1 = <span class="keyword">new</span> Animal();</span><br><span class="line">        Animal.Head head1 = a1.new Head();</span><br><span class="line">        head1.show();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 实例化静态内部类</span></span><br><span class="line">        Animal.Hand hand = <span class="keyword">new</span> Animal.Hand();</span><br><span class="line">        hand.f();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 外部类有继承关系时，若内部类没有进行重写，则默认还是使用外部类父类的内部类。</span></span><br><span class="line">        Person p1 = <span class="keyword">new</span> Person(<span class="string">"tom"</span>,<span class="number">22</span>);</span><br><span class="line">        Person.Head head2 = p1.new Head();</span><br><span class="line">        head2.thinking();</span><br><span class="line">        Animal.Footer footer = p1.new Footer();</span><br><span class="line">        footer.show();</span><br><span class="line"></span><br><span class="line">        p1.change();</span><br><span class="line">        p1.show();</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 打印结果：</span></span><br><span class="line"><span class="comment">         * Animal head....</span></span><br><span class="line"><span class="comment">         * animal hand f()...</span></span><br><span class="line"><span class="comment">         * thinking...</span></span><br><span class="line"><span class="comment">         * Animal footer show...</span></span><br><span class="line"><span class="comment">         * null</span></span><br><span class="line"><span class="comment">         * Person&#123;name='eye change tom', age=22&#125;</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Hand</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"animal hand f()..."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Head</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"Animal head...."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Footer</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"Animal footer show..."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    String name;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Head</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">thinking</span><span class="params">()</span></span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"thinking..."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Eye</span></span>&#123;</span><br><span class="line">        String name;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeName</span><span class="params">()</span></span>&#123;</span><br><span class="line">            System.out.println(<span class="keyword">this</span>.name);</span><br><span class="line">            <span class="comment">// 使用Person.this.xx来调用外部类的属性</span></span><br><span class="line">            Person.<span class="keyword">this</span>.name = <span class="string">"eye change "</span>+ Person.<span class="keyword">this</span>.name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">change</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Eye eye = <span class="keyword">new</span> Eye();</span><br><span class="line">        eye.changeName();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="keyword">this</span>.toString());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Person&#123;"</span> +</span><br><span class="line">                <span class="string">"name='"</span> + name + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", age="</span> + age +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="局部内部类（方法内，代码块内，构造器内）"><a href="#局部内部类（方法内，代码块内，构造器内）" class="headerlink" title="局部内部类（方法内，代码块内，构造器内）"></a><span id="part">局部内部类</span>（方法内，代码块内，构造器内）</h4><p>局部内部类包含着匿名内部类，其实匿名内部类就是局部内部类的一种简写。<br>在java中类似下面这种局部内部类的并不常见：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">AA</span></span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主要的还是下面这种：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回一个实现了Comparable接口的类的对象</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Comparable <span class="title">getComparable</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">MyComparable</span> <span class="keyword">implements</span> <span class="title">Comparable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MyComparable();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面这种写法可以更加简便，既使用匿名内部类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回一个实现了Comparable接口的类的对象</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Comparable <span class="title">getComparable</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Comparable() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而且匿名内部类里面只能调用局部变量，不能修改局部变量的值，但是可以修改外部成员变量的值，使用<code>OutClass.this.value</code>访问。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/多态/" rel="tag"><i class="fa fa-tag"> 多态</i></a>
+          
+            <a href="/tags/面向对象/" rel="tag"><i class="fa fa-tag"> 面向对象</i></a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/13/java集合/" rel="next" title="java集合">
+                <i class="fa fa-chevron-left"></i> java集合
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/17/java泛型/" rel="prev" title="java泛型">
+                java泛型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Daniel</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/runooboy" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="Title" target="_blank">Title</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象"><span class="nav-number">1.</span> <span class="nav-text">面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java中什么是对象"><span class="nav-number">1.1.</span> <span class="nav-text">java中什么是对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是面向对象"><span class="nav-number">1.2.</span> <span class="nav-text">什么是面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#面向过程编程和面向对象编程"><span class="nav-number">1.2.1.</span> <span class="nav-text">面向过程编程和面向对象编程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象三大特征"><span class="nav-number">2.</span> <span class="nav-text">面向对象三大特征</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#封装"><span class="nav-number">2.1.</span> <span class="nav-text">封装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么需要封装？封装的作用？"><span class="nav-number">2.1.1.</span> <span class="nav-text">为什么需要封装？封装的作用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#程序设计一直以来都在追求“高内聚、低耦合”"><span class="nav-number">2.1.2.</span> <span class="nav-text">程序设计一直以来都在追求“高内聚、低耦合”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#java封装性的体现需要权限修饰符来配合。"><span class="nav-number">2.1.3.</span> <span class="nav-text">java封装性的体现需要权限修饰符来配合。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继承"><span class="nav-number">2.2.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多态"><span class="nav-number">2.3.</span> <span class="nav-text">多态</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#陷阱：“重写”私有方法"><span class="nav-number">2.3.1.</span> <span class="nav-text">陷阱：“重写”私有方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象剩余知识点"><span class="nav-number">3.</span> <span class="nav-text">面向对象剩余知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本数据类型、包装类、String"><span class="nav-number">3.1.</span> <span class="nav-text">基本数据类型、包装类、String</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本数据类型转换为包装类"><span class="nav-number">3.1.1.</span> <span class="nav-text">基本数据类型转换为包装类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#包装类转换为基本数据类型"><span class="nav-number">3.1.2.</span> <span class="nav-text">包装类转换为基本数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自动装箱和自动拆箱"><span class="nav-number">3.1.3.</span> <span class="nav-text">自动装箱和自动拆箱</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本数据类型、包装类和String之间的相互转换"><span class="nav-number">3.1.4.</span> <span class="nav-text">基本数据类型、包装类和String之间的相互转换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类的内部结构——代码块"><span class="nav-number">3.2.</span> <span class="nav-text">类的内部结构——代码块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#静态代码块"><span class="nav-number">3.2.1.</span> <span class="nav-text">静态代码块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非静态代码块"><span class="nav-number">3.2.2.</span> <span class="nav-text">非静态代码块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#静态代码块和非静态代码块使用实例"><span class="nav-number">3.2.3.</span> <span class="nav-text">静态代码块和非静态代码块使用实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类的内部结构——内部类"><span class="nav-number">3.3.</span> <span class="nav-text">类的内部结构——内部类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#成员内部类（static成员内部类与非static成员内部类）"><span class="nav-number">3.3.1.</span> <span class="nav-text">成员内部类（static成员内部类与非static成员内部类）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#局部内部类（方法内，代码块内，构造器内）"><span class="nav-number">3.3.2.</span> <span class="nav-text">局部内部类（方法内，代码块内，构造器内）</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Daniel</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 Personal 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
