@@ -86,9 +86,9 @@ LIMIT <limit_number>
 	唯一： `create unique index name_index on tb(name)`
 	复合： `create index dept1_dept2_index on tb(dept1,dept2)`
 2. 方式二：alter table <表名> add <索引类型> <索引名(字段)>
-	单值： `alter tb add index dept_index(dept)`
-	唯一： `alter tb add unique index name_index(name)`
-	复合： `alter tb add index dept1_dept2_index(dept1,dept2)`
+	单值： `alter table tb add index dept_index(dept)`
+	唯一： `alter table tb add unique index name_index(name)`
+	复合： `alter table tb add index dept1_dept2_index(dept1,dept2)`
 	
 **删除索引**
 drop index 索引名 on 表名

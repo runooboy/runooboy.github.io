@@ -18,7 +18,7 @@ public class NameConflict {
     public int show(){return 1;}
 }
 ```
-像上面这种写法，编译的时候直接会报Error 已在类 com.chapter9_interface.NameConflict中定义了方法 show()
+像上面这种写法，编译的时候直接会报Error： 已在类 com.chapter9_interface.NameConflict中定义了方法 show()
 
 ### 重写(Override)
 重写是子类对父类的允许访问的方法的实现过程进行重新编写, ** 返回值和形参都不能改变 **。即外壳不变，核心重写！

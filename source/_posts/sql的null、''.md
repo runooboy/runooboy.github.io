@@ -1,5 +1,5 @@
 ---
-title: sql相关问题
+title: sql的null、''
 date: 2019-09-27 15:18:40
 category:
 - sql
@@ -93,6 +93,4 @@ false
 EntityTable{id=3, tableName='2', entityName='2', multiLanguage=3, primaryKeyName='3', primaryKeyStrategy='3', primaryKeyGenerator='3', supportWho=3, supportVersion=2, status='3', meaning='null'}
 ```
 而数据库中的数据类型字段则不一样，它是没有`''`的，如果这个字段没有值就直接是null,而不是其他
-### Mysql和Oracle Sql差异
-
 

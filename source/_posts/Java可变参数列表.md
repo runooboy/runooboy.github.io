@@ -9,7 +9,7 @@ tags:
 ---
 
 ### Java传参机制
-首先看下java中得参数传递机制:
+首先看下java中的参数传递机制:
 ![](clipboard.png)
 
 <!-- more -->
@@ -115,4 +115,24 @@ public void printNames(String[] names){
     }
 }
 ```
-编译器报错，printNames is already defined in ....。也就是说编译器的确将这个可变长度参数当成了一个数组。
+编译器报错，printNames is already defined in ....。也就是说编译器的确将这个可变长度参数当成了一个数组。另外，我试着将一个可变数组作为实参传入一个形参为数组的方法中：
+```java
+@Test
+public void test4(){
+    String[] str = new String[]{"abc","def"};
+    test5(str);
+}
+public void test5(String...str){
+    test6(str);
+}
+public void test6(String[] str){
+    for (String s : str) {
+        System.out.print(s+",");
+    }
+}
+```
+编译器不报错，说明有戏，运行后打印结果：
+```java
+abc,def,
+```
+这也就证明了可变参数其实就是数组，只是写法上有些不同而已。
